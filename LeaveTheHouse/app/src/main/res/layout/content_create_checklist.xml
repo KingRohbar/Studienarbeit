@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/titleInputLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Title:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/titleInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Checklist" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/descriptionInputLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Description:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/descriptionInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Checklist for leaving the home" />
+
+</LinearLayout>
