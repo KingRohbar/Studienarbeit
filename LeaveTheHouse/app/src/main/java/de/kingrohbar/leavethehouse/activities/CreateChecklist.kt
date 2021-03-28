@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import de.kingrohbar.leavethehouse.R
+import de.kingrohbar.leavethehouse.model.Checklist
 import de.kingrohbar.leavethehouse.util.Finals
 
 class CreateChecklist : AppCompatActivity() {
@@ -25,8 +26,9 @@ class CreateChecklist : AppCompatActivity() {
             val description = findViewById<EditText>(R.id.descriptionInput).text.toString()
 
             intent = Intent()
+            intent.putExtra("successful", true)
             intent.putExtra("title", title)
-            intent.putExtra(description, description)
+            intent.putExtra("description", description)
 
             setResult(Finals.CREATE_CHECKLIST, intent)
             finishActivity(Finals.CREATE_CHECKLIST)

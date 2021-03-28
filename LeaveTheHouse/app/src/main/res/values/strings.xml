@@ -17,4 +17,6 @@
     <string name="cancel">CANCEL</string>
     <string name="title_activity_create_checklist">Create Checklist</string>
 
+    <string name="duplicateTitle">Error: No new Checklist created. \n \t No duplicate Titles allowed</string>
+
 </resources>
