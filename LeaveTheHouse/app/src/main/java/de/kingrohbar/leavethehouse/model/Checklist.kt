@@ -3,9 +3,10 @@ package de.kingrohbar.leavethehouse.model
 import de.kingrohbar.leavethehouse.Task
 
 class Checklist(var title:String, var description: String?) {
-    var tasks: ArrayList<Task> = ArrayList();
-
-    constructor(title: String, description: String?, task: ArrayList<Task>) : this(title, description)
+var tasks = ArrayList<Task>()
+    constructor(title: String, description: String?, tasks: ArrayList<Task>) : this(title, description){
+        this.tasks = tasks
+    }
 
     fun addTask(task:Task){
         tasks.add(task);

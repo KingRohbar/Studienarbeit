@@ -4,11 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import de.kingrohbar.leavethehouse.MainActivity
 import de.kingrohbar.leavethehouse.R
 import de.kingrohbar.leavethehouse.Task
 import de.kingrohbar.leavethehouse.controller.TaskRecyclerViewAdapter
@@ -46,6 +49,7 @@ class OpenChecklistActivity : AppCompatActivity() {
             description = intent.getStringExtra("Description")
             if (intent.hasExtra("Tasks")){
                 tasks = intent.getParcelableArrayListExtra("Tasks")
+                Log.d("Tasks", tasks.toString())
             }
         }else{
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show()
@@ -81,26 +85,27 @@ class OpenChecklistActivity : AppCompatActivity() {
         this.taskRecyclerView.adapter?.notifyDataSetChanged()
     }
 
-    fun getTasks(): ArrayList<Task>{
-        return tasks
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onBackPressed() {
         returnTasks()
+        super.onBackPressed()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        returnTasks()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            returnTasks()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
-    fun returnTasks(): Intent {
+    private fun returnTasks() {
         val returnIntent = Intent()
         returnIntent.putExtra("successful", true)
-        returnIntent.putParcelableArrayListExtra("Tasks", this.tasks)
-        setResult(Finals.GET_TASKS, returnIntent)
-
-        return returnIntent
+        returnIntent.putExtra("checklistTitle", title)
+        returnIntent.putParcelableArrayListExtra("Tasks", tasks)
+        setResult(RESULT_OK, returnIntent)
+        finishActivity(Finals.GET_TASKS)
+        finish()
     }
 }

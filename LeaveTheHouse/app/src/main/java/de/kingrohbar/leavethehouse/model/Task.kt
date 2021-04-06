@@ -2,10 +2,15 @@ package de.kingrohbar.leavethehouse
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.text.BoringLayout
 import java.io.FileDescriptor
 
 class Task(var title: String, var description: String?) : Parcelable {
     var checked: Boolean = false;
+
+    constructor(title: String, description: String?, checked: Boolean): this(title, description){
+        this.checked = checked
+    }
 
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),

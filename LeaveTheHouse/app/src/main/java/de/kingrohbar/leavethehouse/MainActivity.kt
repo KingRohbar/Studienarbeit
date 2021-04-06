@@ -4,22 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import de.kingrohbar.leavethehouse.controller.ChecklistRecyclerViewAdapter
 import de.kingrohbar.leavethehouse.activities.CreateChecklist
+import de.kingrohbar.leavethehouse.activities.OpenChecklistActivity
+import de.kingrohbar.leavethehouse.controller.ChecklistRecyclerViewAdapter
 import de.kingrohbar.leavethehouse.model.Checklist
 import de.kingrohbar.leavethehouse.util.Finals
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.*
-import java.lang.StringBuilder
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnChecklistListener{
 
     private var FILENAME = "storage.json"
     private var isLargeLayout: Boolean = false
@@ -34,8 +37,9 @@ class MainActivity : AppCompatActivity() {
         isLargeLayout = resources.getBoolean(R.bool.large_layout)
         checklistRecyclerView = findViewById(R.id.checklistRecyclerView)
         getChecklistsFromFile(this)
+        printData()
 
-        val checklistRecyclerViewAdapter = ChecklistRecyclerViewAdapter(this, this.data)
+        val checklistRecyclerViewAdapter = ChecklistRecyclerViewAdapter(this, this.data, this)
         checklistRecyclerView.adapter = checklistRecyclerViewAdapter
         checklistRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -46,8 +50,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         saveChecklistsToFile(this)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onBackPressed() {
+        saveChecklistsToFile(this)
+        super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -71,18 +80,35 @@ class MainActivity : AppCompatActivity() {
         when(requestCode){
             Finals.CREATE_CHECKLIST -> {
                 val bundle = data!!.extras
-                if(bundle!!.get("successful") as Boolean){
-                    val newChecklist = Checklist(bundle.get("title") as String, bundle.get("description") as String)
+                if (bundle!!.get("successful") as Boolean) {
+                    val newChecklist = Checklist(
+                        bundle.get("title") as String,
+                        bundle.get("description") as String
+                    )
                     var uniqueTitle: Boolean = true
-                    for (i in this.data){
-                        if(i.title == newChecklist.title){
+                    for (i in this.data) {
+                        if (i.title == newChecklist.title) {
                             uniqueTitle = false
                         }
                     }
-                    if(uniqueTitle) {
+                    if (uniqueTitle) {
                         this.data.add(newChecklist)
-                    }else{
-                        Snackbar.make(findViewById(R.id.coordinaterLayoutMain), R.string.duplicateTitle, Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        Snackbar.make(
+                            findViewById(R.id.coordinaterLayoutMain),
+                            R.string.duplicateTitle,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+            Finals.GET_TASKS -> {
+                val bundle = data!!.extras
+                if(bundle!!.get("successful") as Boolean){
+                    for (i in this.data){
+                        if(i.title == bundle.get("checklistTitle")){
+                            i.tasks = bundle.getParcelableArrayList<Task>("Tasks") as ArrayList<Task>
+                        }
                     }
                 }
             }
@@ -98,7 +124,17 @@ class MainActivity : AppCompatActivity() {
             val checklistJson = JSONObject()
             checklistJson.put("title", this.data[i].title)
             checklistJson.put("description", this.data[i].description)
+            var tasksJson = JSONArray()
+            for (j in this.data[i].tasks.indices){
+                var taskJson = JSONObject()
+                taskJson.put("title", this.data[i].tasks[j].title)
+                taskJson.put("description", this.data[i].tasks[j].description)
+                taskJson.put("checked", this.data[i].tasks[j].checked)
+                tasksJson.put(taskJson)
+            }
+            checklistJson.put("tasks", tasksJson)
             var checklistString = checklistJson.toString()
+            Log.d("Tasks", "saveChecklistsToFile: $checklistString")
 
             checklistsString += "\"$i\": $checklistString"
             if(i + 1 != this.data.size){
@@ -130,12 +166,49 @@ class MainActivity : AppCompatActivity() {
 
         var response: String = stringBuilder.toString()
         val checklistsJson = JSONObject(response)
-        Log.d("checklsitsJson", checklistsJson.toString())
+        Log.d("checklistsJson", checklistsJson.toString())
+
 
         for(i in checklistsJson.keys()){
             Log.d("JsonObject content", checklistsJson[i].toString())
             val jsonObject = JSONObject(checklistsJson[i].toString())
-            this.data.add(Checklist(jsonObject.getString("title"), jsonObject.getString("description")))
+            var tasksJson = jsonObject.getJSONArray("tasks")
+            var tasks = ArrayList<Task>()
+            Log.d("JsonObject tasks", tasksJson.toString())
+            for (j in 0 until tasksJson.length()){
+                var jsonTaskObject = tasksJson.getJSONObject(j)
+                Log.d("JsonObject task", jsonTaskObject.toString())
+                tasks.add(Task(jsonTaskObject.getString("title"), jsonTaskObject.getString("description"), jsonTaskObject.getBoolean("checked")))
+            }
+
+            this.data.add(
+                Checklist(
+                    jsonObject.getString("title"),
+                    jsonObject.getString("description"),
+                    tasks
+                )
+            )
         }
+    }
+
+    override fun openChecklist(position: Int) {
+        super.openChecklist(position)
+        val intent = Intent(this, OpenChecklistActivity::class.java)
+        intent.putExtra("Title", data[position].title)
+        intent.putExtra("Description", data[position].description)
+        intent.putParcelableArrayListExtra("Tasks", data[position].tasks)
+        startActivityForResult(intent, Finals.GET_TASKS)
+    }
+
+    private fun printData() {
+        var dataString: String = ""
+        for (i in data.indices){
+            dataString += "Title: ${data[i].title}, Description: ${data[i].description}, Tasks: "
+            for (j in data[i].tasks.indices) {
+             dataString += "Title: ${data[i].tasks[j].title}, Description: ${data[i].tasks[j].description}, "
+            }
+            dataString += "; "
+        }
+        Log.d("PrintData", dataString)
     }
 }
