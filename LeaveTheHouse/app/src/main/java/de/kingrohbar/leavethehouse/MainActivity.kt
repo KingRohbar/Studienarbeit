@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import de.kingrohbar.leavethehouse.controller.ChecklistRecyclerViewAdapter
-import de.kingrohbar.leavethehouse.fragment.CreateChecklist
+import de.kingrohbar.leavethehouse.activities.CreateChecklist
 import de.kingrohbar.leavethehouse.model.Checklist
 import de.kingrohbar.leavethehouse.util.Finals
 import org.json.JSONObject
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     if(uniqueTitle) {
                         this.data.add(newChecklist)
                     }else{
-                        Snackbar.make(findViewById(R.id.coordinaterLayout), R.string.duplicateTitle, Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(findViewById(R.id.coordinaterLayoutMain), R.string.duplicateTitle, Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }
