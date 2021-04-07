@@ -10,8 +10,6 @@ import de.kingrohbar.leavethehouse.util.Finals
 
 class CreateChecklist : AppCompatActivity() {
 
-    private val tag = "CreateChecklist: Activity"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_checklist)
@@ -32,5 +30,14 @@ class CreateChecklist : AppCompatActivity() {
             finishActivity(Finals.CREATE_CHECKLIST)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        intent = Intent()
+        intent.putExtra("successful", false)
+        setResult(Finals.CREATE_CHECKLIST, intent)
+        finishActivity(Finals.CREATE_CHECKLIST)
+        finish()
+        super.onBackPressed()
     }
 }

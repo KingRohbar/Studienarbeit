@@ -2,7 +2,6 @@ package de.kingrohbar.leavethehouse
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode){
+        switch@ when(requestCode){
             Finals.CREATE_CHECKLIST -> {
                 val bundle = data!!.extras
                 if (bundle!!.get("successful") as Boolean) {
@@ -120,6 +119,7 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
             Finals.EDIT_CHECKLIST -> {
                 val bundle = data!!.extras
                 if (bundle!!.get("successful") as Boolean) {
+
                     val newTitle = bundle.get("title") as String
                     val newDescription = bundle.get("description") as String
                     val position = bundle.getInt("Position")
@@ -138,6 +138,13 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
                             R.string.duplicateTitle,
                             Snackbar.LENGTH_SHORT
                         ).show()
+                    }
+                }else if (!(bundle!!.get("successful") as Boolean)){
+                    if (bundle!!.getBoolean("delete") != null){
+                        if(bundle!!.get("delete") as Boolean){
+                            val position = bundle.getInt("Position")
+                            this.data.removeAt(position)
+                        }
                     }
                 }
             }

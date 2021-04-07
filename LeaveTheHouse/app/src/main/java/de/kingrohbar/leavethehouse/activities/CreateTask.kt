@@ -3,6 +3,7 @@ package de.kingrohbar.leavethehouse.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.kingrohbar.leavethehouse.R
@@ -30,6 +31,19 @@ class CreateTask : AppCompatActivity() {
             finishActivity(Finals.CREATE_TASK)
             finish()
         }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        intent = Intent()
+        intent.putExtra("successful", false)
+        setResult(Finals.CREATE_TASK, intent)
+        finishActivity(Finals.CREATE_TASK)
+        finish()
+        super.onBackPressed()
     }
 }

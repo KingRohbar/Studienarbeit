@@ -19,11 +19,10 @@
         <activity
             android:name=".activities.CreateTask"
             android:label="Create Task"
-            android:parentActivityName=".activities.OpenChecklistActivity"
             android:theme="@style/Theme.LeaveTheHouse.NoActionBar" />
         <activity
             android:name=".activities.OpenChecklistActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".activities.CreateChecklist"
             android:label="@string/title_activity_create_checklist"
