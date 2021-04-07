@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.kingrohbar.leavethehouse.MainActivity">
+
+    <item
+        android:id="@+id/edit"
+        android:icon="@drawable/baseline_mode_edit_24"
+        android:title="@string/editMode"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

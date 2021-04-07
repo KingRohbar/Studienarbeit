@@ -1,6 +1,7 @@
 package de.kingrohbar.leavethehouse.controller
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ class ChecklistRecyclerViewAdapter(
     private val onChecklistListener: OnChecklistListener
 ) : RecyclerView.Adapter<ChecklistRecyclerViewAdapter.ChecklistViewHolder>() {
 
+    private var editMode: Boolean = false
+
     class ChecklistViewHolder(@NonNull itemView: View, private val onChecklistListener: OnChecklistListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
             itemView.setOnClickListener(this)
@@ -24,9 +27,14 @@ class ChecklistRecyclerViewAdapter(
         var titleTextView: TextView = itemView.findViewById(R.id.checklistTitleText)
         var descriptionTextView: TextView = itemView.findViewById(R.id.checklistDescriptionText)
         var checklistRowLayout: ConstraintLayout = itemView.findViewById(R.id.checklistRowLayout)
+        var editMode: Boolean = false
 
         override fun onClick(v: View?) {
-            onChecklistListener.openChecklist(adapterPosition)
+            if (!this.editMode) {
+                onChecklistListener.openChecklist(adapterPosition)
+            }else{
+                onChecklistListener.openChecklistEdit(adapterPosition)
+            }
         }
     }
 
@@ -40,15 +48,7 @@ class ChecklistRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ChecklistViewHolder, position: Int) {
         holder.titleTextView.text = checklists[position].title
         holder.descriptionTextView.text = checklists[position].description
-
-        /*holder.checklistRowLayout.setOnClickListener {
-
-            val intent = Intent(context, OpenChecklistActivity::class.java)
-            intent.putExtra("Title", checklists[position].title)
-            intent.putExtra("Description", checklists[position].description)
-            intent.putParcelableArrayListExtra("Tasks", checklists[position].tasks)
-            (context as Activity).startActivityForResult(intent, Finals.GET_TASKS)
-        }*/
+        holder.editMode = this.editMode
     }
 
     override fun getItemCount(): Int {
@@ -57,5 +57,11 @@ class ChecklistRecyclerViewAdapter(
 
     interface OnChecklistListener{
         fun openChecklist(position: Int){}
+        fun openChecklistEdit(position: Int){}
+    }
+
+    fun setEditMode(editMode: Boolean){
+        this.editMode = editMode
+        notifyDataSetChanged()
     }
 }
