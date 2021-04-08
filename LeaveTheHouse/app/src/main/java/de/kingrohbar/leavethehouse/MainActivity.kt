@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
         isLargeLayout = resources.getBoolean(R.bool.large_layout)
         checklistRecyclerView = findViewById(R.id.checklistRecyclerView)
         getChecklistsFromFile(this)
-        printData()
+        //printData()
 
         val checklistRecyclerViewAdapter = ChecklistRecyclerViewAdapter(this, this.data, this)
         checklistRecyclerView.adapter = checklistRecyclerViewAdapter
@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
     override fun onSaveInstanceState(outState: Bundle) {
         saveChecklistsToFile(this)
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onStop() {
+        saveChecklistsToFile(this)
+        super.onStop()
     }
 
     override fun onBackPressed() {
@@ -91,7 +96,7 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        switch@ when(requestCode){
+        when(requestCode){
             Finals.CREATE_CHECKLIST -> {
                 val bundle = data!!.extras
                 if (bundle!!.get("successful") as Boolean) {
@@ -123,7 +128,7 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
                     val newTitle = bundle.get("title") as String
                     val newDescription = bundle.get("description") as String
                     val position = bundle.getInt("Position")
-                    var uniqueTitle: Boolean = true
+                    var uniqueTitle = true
                     for (i in this.data.indices) {
                         if (this.data[i].title == newTitle && i != position) {
                             uniqueTitle = false

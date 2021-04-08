@@ -15,35 +15,58 @@ import de.kingrohbar.leavethehouse.R
 import de.kingrohbar.leavethehouse.Task
 import de.kingrohbar.leavethehouse.activities.OpenChecklistActivity
 
-class TaskRecyclerViewAdapter (var context: Context, private var data: ArrayList<Task>) : RecyclerView.Adapter<TaskRecyclerViewAdapter.TaskViewHolder>() {
+class TaskRecyclerViewAdapter (
+        var context: Context,
+        private var data: ArrayList<Task>,
+        private val onTaskListener: OnTaskListener) : RecyclerView.Adapter<TaskRecyclerViewAdapter.TaskViewHolder>() {
 
-    class TaskViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private var editMode: Boolean = false
+
+    class TaskViewHolder(@NonNull itemView: View, private val onTaskListener: OnTaskListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        init {
+            itemView.setOnClickListener(this)
+        }
         var titleTextView: TextView = itemView.findViewById(R.id.taskTitleText)
         var descriptionTextView: TextView = itemView.findViewById(R.id.taskDescriptionText)
         var checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
         var taskRowLayout: ConstraintLayout = itemView.findViewById(R.id.taskRowLayout)
+        var editMode: Boolean = false
+
+        override fun onClick(v: View?) {
+            if (!this.editMode) {
+                onTaskListener.checkTask(adapterPosition)
+            }else{
+                onTaskListener.openTaskEdit(adapterPosition)
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val layoutInflater =  LayoutInflater.from(context)
         var view: View = layoutInflater.inflate(R.layout.task_row, parent, false)
 
-        return TaskViewHolder(view)
+        return TaskViewHolder(view, onTaskListener)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.titleTextView.text = data[position].title
         holder.descriptionTextView.text = data[position].description
         holder.checkBox.isChecked = data[position].checked
-
-        holder.taskRowLayout.setOnClickListener {
-            var status = holder.checkBox.isChecked
-            data[position].checked = !status
-            notifyDataSetChanged()
-        }
+        holder.editMode = this.editMode
     }
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    fun setEditMode(editMode: Boolean){
+        this.editMode = editMode
+        notifyDataSetChanged()
+    }
+
+    interface OnTaskListener{
+        fun checkTask(position: Int){}
+        fun openTaskEdit(position: Int){}
     }
 }

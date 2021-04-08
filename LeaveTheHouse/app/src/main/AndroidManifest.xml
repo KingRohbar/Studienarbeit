@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LeaveTheHouse">
         <activity
-            android:name=".activities.EditChecklist"
-            android:parentActivityName=".MainActivity"
-            android:label="Edit Checklist"
+            android:name=".activities.EditTask"
+            android:label="Edit Task"
             android:theme="@style/Theme.LeaveTheHouse.NoActionBar"/>
+        <activity
+            android:name=".activities.EditChecklist"
+            android:label="Edit Checklist"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.LeaveTheHouse.NoActionBar" />
         <activity
             android:name=".activities.CreateTask"
             android:label="Create Task"

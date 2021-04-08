@@ -55,13 +55,13 @@ class ChecklistRecyclerViewAdapter(
         return checklists.size
     }
 
-    interface OnChecklistListener{
-        fun openChecklist(position: Int){}
-        fun openChecklistEdit(position: Int){}
-    }
-
     fun setEditMode(editMode: Boolean){
         this.editMode = editMode
         notifyDataSetChanged()
+    }
+
+    interface OnChecklistListener{
+        fun openChecklist(position: Int){}
+        fun openChecklistEdit(position: Int){}
     }
 }

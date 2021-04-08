@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +13,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import de.kingrohbar.leavethehouse.R
 import de.kingrohbar.leavethehouse.Task
+import de.kingrohbar.leavethehouse.controller.ChecklistRecyclerViewAdapter
 import de.kingrohbar.leavethehouse.controller.TaskRecyclerViewAdapter
+import de.kingrohbar.leavethehouse.controller.TaskRecyclerViewAdapter.*
 import de.kingrohbar.leavethehouse.util.Finals
 
-class OpenChecklistActivity : AppCompatActivity() {
+class OpenChecklistActivity : AppCompatActivity(), OnTaskListener {
 
     private lateinit var taskRecyclerView: RecyclerView
     lateinit var title: String
     lateinit var description: String
     private var tasks: ArrayList<Task> = ArrayList()
+    private lateinit var adapter: TaskRecyclerViewAdapter
+    private var editMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +35,9 @@ class OpenChecklistActivity : AppCompatActivity() {
         getData()
         setData()
 
-        val taskRecyclerViewAdapter = TaskRecyclerViewAdapter(this, this.tasks)
+        val taskRecyclerViewAdapter = TaskRecyclerViewAdapter(this, this.tasks, this)
         taskRecyclerView.adapter = taskRecyclerViewAdapter
+        this.adapter = taskRecyclerViewAdapter
         taskRecyclerView.layoutManager = LinearLayoutManager(this)
 
         findViewById<FloatingActionButton>(R.id.add_task).setOnClickListener { view ->
@@ -46,7 +52,6 @@ class OpenChecklistActivity : AppCompatActivity() {
             description = intent.getStringExtra("Description")
             if (intent.hasExtra("Tasks")){
                 tasks = intent.getParcelableArrayListExtra("Tasks")
-                Log.d("Tasks", tasks.toString())
             }
         }else{
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show()
@@ -78,8 +83,45 @@ class OpenChecklistActivity : AppCompatActivity() {
                     }
                 }
             }
+            Finals.EDIT_TASK -> {
+                val bundle = data!!.extras
+                if (bundle!!.get("successful") as Boolean) {
+
+                    val newTitle = bundle.get("title") as String
+                    val newDescription = bundle.get("description") as String
+                    val position = bundle.getInt("Position")
+                    var uniqueTitle = true
+                    for (i in this.tasks.indices) {
+                        if (this.tasks[i].title == newTitle && i != position) {
+                            uniqueTitle = false
+                        }
+                    }
+                    if (uniqueTitle) {
+                        this.tasks[position].title = newTitle
+                        this.tasks[position].description = newDescription
+                    } else {
+                        Snackbar.make(
+                            findViewById(R.id.coordinaterLayoutMain),
+                            R.string.duplicateTitle,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }else if (!(bundle!!.get("successful") as Boolean)){
+                    if (bundle!!.getBoolean("delete") != null){
+                        if(bundle!!.get("delete") as Boolean){
+                            val position = bundle.getInt("Position")
+                            this.tasks.removeAt(position)
+                        }
+                    }
+                }
+            }
         }
         this.taskRecyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_open_checklist, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onBackPressed() {
@@ -87,13 +129,34 @@ class OpenChecklistActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
-            returnTasks()
-            return true
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        returnTasks()
+        return true
+    }
 
-        return super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home -> {
+                returnTasks()
+                return true
+            }
+            R.id.editTasks -> {
+                if (this.editMode) {
+                    item.setIcon(R.drawable.baseline_mode_edit_24)
+                    this.editMode = !this.editMode
+                } else {
+                    item.setIcon(R.drawable.baseline_edit_off_24)
+                    this.editMode = !this.editMode
+                }
+                setEditMode(editMode)
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setEditMode(editMode: Boolean){
+        adapter.setEditMode(editMode)
     }
 
     private fun returnTasks() {
@@ -104,5 +167,20 @@ class OpenChecklistActivity : AppCompatActivity() {
         setResult(RESULT_OK, returnIntent)
         finishActivity(Finals.GET_TASKS)
         finish()
+    }
+
+    override fun checkTask(position: Int) {
+        tasks[position].checked = !tasks[position].checked
+        this.taskRecyclerView.adapter?.notifyDataSetChanged()
+        super.checkTask(position)
+    }
+
+    override fun openTaskEdit(position: Int) {
+        super.openTaskEdit(position)
+        val intent = Intent(this, EditTask::class.java)
+        intent.putExtra("Title", tasks[position].title)
+        intent.putExtra("Description", tasks[position].description)
+        intent.putExtra("Position", position)
+        startActivityForResult(intent, Finals.EDIT_TASK)
     }
 }
