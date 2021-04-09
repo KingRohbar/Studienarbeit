@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/uncheckTasks"
+        android:icon="@drawable/baseline_check_box_outline_blank_24"
+        android:title="@string/editMode"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/editTasks"
         android:icon="@drawable/baseline_mode_edit_24"
         android:title="@string/editMode"

@@ -151,6 +151,10 @@ class OpenChecklistActivity : AppCompatActivity(), OnTaskListener {
                 setEditMode(editMode)
                 true
             }
+            R.id.uncheckTasks -> {
+                uncheckTasks()
+                true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -173,6 +177,13 @@ class OpenChecklistActivity : AppCompatActivity(), OnTaskListener {
         tasks[position].checked = !tasks[position].checked
         this.taskRecyclerView.adapter?.notifyDataSetChanged()
         super.checkTask(position)
+    }
+
+    fun uncheckTasks(){
+        for (i in tasks){
+            i.checked = false
+        }
+        adapter.notifyDataSetChanged()
     }
 
     override fun openTaskEdit(position: Int) {
