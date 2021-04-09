@@ -107,7 +107,7 @@ class OpenChecklistActivity : AppCompatActivity(), OnTaskListener {
                         ).show()
                     }
                 }else if (!(bundle!!.get("successful") as Boolean)){
-                    if (bundle!!.getBoolean("delete") != null){
+                    if (bundle!!.get("delete") != null){
                         if(bundle!!.get("delete") as Boolean){
                             val position = bundle.getInt("Position")
                             this.tasks.removeAt(position)

@@ -83,6 +83,11 @@ class EditTask : AppCompatActivity(), DeleteTaskDialog.DeleteTaskDialogListener 
         finish()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     override fun onBackPressed() {
         intent = Intent()
         intent.putExtra("successful", false)

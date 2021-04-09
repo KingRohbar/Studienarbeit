@@ -204,49 +204,53 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
     private fun getChecklistsFromFile(context: Context){
 
         var file = File(context.filesDir, FILENAME)
-        var fileReader = FileReader(file)
-        var bufferedReader = BufferedReader(fileReader)
-        var stringBuilder = StringBuilder()
-        var line = bufferedReader.readLine()
 
-        while (line != null){
-            stringBuilder.append(line).append("\n")
-            line = bufferedReader.readLine()
-        }
-        bufferedReader.close()
+        if(file.exists()) {
 
-        var response: String = stringBuilder.toString()
-        val checklistsJson = JSONObject(response)
-        //Log.d("checklistsJson", checklistsJson.toString())
+            var fileReader = FileReader(file)
+            var bufferedReader = BufferedReader(fileReader)
+            var stringBuilder = StringBuilder()
+            var line = bufferedReader.readLine()
+
+            while (line != null) {
+                stringBuilder.append(line).append("\n")
+                line = bufferedReader.readLine()
+            }
+            bufferedReader.close()
+
+            var response: String = stringBuilder.toString()
+            val checklistsJson = JSONObject(response)
+            //Log.d("checklistsJson", checklistsJson.toString())
 
 
-        for(i in checklistsJson.keys()){
-            //Log.d("JsonObject content", checklistsJson[i].toString())
-            val jsonObject = JSONObject(checklistsJson[i].toString())
-            var tasksJson = jsonObject.getJSONArray("tasks")
-            var tasks = ArrayList<Task>()
-            //Log.d("JsonObject tasks", tasksJson.toString())
-            for (j in 0 until tasksJson.length()){
-                var jsonTaskObject = tasksJson.getJSONObject(j)
-                //Log.d("JsonObject task", jsonTaskObject.toString())
-                tasks.add(
-                    Task(
-                        jsonTaskObject.getString("title"),
-                        jsonTaskObject.getString("description"),
-                        jsonTaskObject.getBoolean(
-                            "checked"
+            for (i in checklistsJson.keys()) {
+                //Log.d("JsonObject content", checklistsJson[i].toString())
+                val jsonObject = JSONObject(checklistsJson[i].toString())
+                var tasksJson = jsonObject.getJSONArray("tasks")
+                var tasks = ArrayList<Task>()
+                //Log.d("JsonObject tasks", tasksJson.toString())
+                for (j in 0 until tasksJson.length()) {
+                    var jsonTaskObject = tasksJson.getJSONObject(j)
+                    //Log.d("JsonObject task", jsonTaskObject.toString())
+                    tasks.add(
+                        Task(
+                            jsonTaskObject.getString("title"),
+                            jsonTaskObject.getString("description"),
+                            jsonTaskObject.getBoolean(
+                                "checked"
+                            )
                         )
+                    )
+                }
+
+                this.data.add(
+                    Checklist(
+                        jsonObject.getString("title"),
+                        jsonObject.getString("description"),
+                        tasks
                     )
                 )
             }
-
-            this.data.add(
-                Checklist(
-                    jsonObject.getString("title"),
-                    jsonObject.getString("description"),
-                    tasks
-                )
-            )
         }
     }
 
