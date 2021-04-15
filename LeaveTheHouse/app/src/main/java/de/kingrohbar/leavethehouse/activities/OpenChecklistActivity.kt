@@ -17,6 +17,12 @@ import de.kingrohbar.leavethehouse.controller.ChecklistRecyclerViewAdapter
 import de.kingrohbar.leavethehouse.controller.TaskRecyclerViewAdapter
 import de.kingrohbar.leavethehouse.controller.TaskRecyclerViewAdapter.*
 import de.kingrohbar.leavethehouse.util.Finals
+import java.lang.String.format
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 class OpenChecklistActivity : AppCompatActivity(), OnTaskListener {
 
@@ -175,13 +181,26 @@ class OpenChecklistActivity : AppCompatActivity(), OnTaskListener {
 
     override fun checkTask(position: Int) {
         tasks[position].checked = !tasks[position].checked
+        if(tasks[position].lastChecked == "" && tasks[position].checked){
+            tasks[position].lastChecked = formatDate()
+        }else{
+            tasks[position].lastChecked = ""
+        }
         this.taskRecyclerView.adapter?.notifyDataSetChanged()
-        super.checkTask(position)
     }
 
-    fun uncheckTasks(){
+    private fun formatDate(): String{
+        var dateTime = Calendar.getInstance().time
+        var dateFormat = SimpleDateFormat("E, dd.MM.yy HH:mm")
+        var formattedDate = dateFormat.format(dateTime).toString()
+
+        return formattedDate
+    }
+
+    private fun uncheckTasks(){
         for (i in tasks){
             i.checked = false
+            i.lastChecked = ""
         }
         adapter.notifyDataSetChanged()
     }

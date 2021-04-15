@@ -6,10 +6,12 @@ import android.text.BoringLayout
 import java.io.FileDescriptor
 
 class Task(var title: String, var description: String?) : Parcelable {
-    var checked: Boolean = false;
+    var checked: Boolean = false
+    var lastChecked: String = ""
 
-    constructor(title: String, description: String?, checked: Boolean): this(title, description){
+    constructor(title: String, description: String?, checked: Boolean, lastChecked: String): this(title, description){
         this.checked = checked
+        this.lastChecked = lastChecked
     }
 
     constructor(parcel: Parcel) : this(
@@ -17,12 +19,14 @@ class Task(var title: String, var description: String?) : Parcelable {
         parcel.readString()
     ) {
         checked = parcel.readByte() != 0.toByte()
+        lastChecked = parcel.readString().toString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
         parcel.writeString(description)
         parcel.writeByte(if (checked) 1 else 0)
+        parcel.writeString(lastChecked)
     }
 
     override fun describeContents(): Int {

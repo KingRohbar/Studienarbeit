@@ -10,10 +10,13 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilder
 import androidx.recyclerview.widget.RecyclerView
 import de.kingrohbar.leavethehouse.R
 import de.kingrohbar.leavethehouse.Task
 import de.kingrohbar.leavethehouse.activities.OpenChecklistActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TaskRecyclerViewAdapter (
         var context: Context,
@@ -28,6 +31,7 @@ class TaskRecyclerViewAdapter (
         }
         var titleTextView: TextView = itemView.findViewById(R.id.taskTitleText)
         var descriptionTextView: TextView = itemView.findViewById(R.id.taskDescriptionText)
+        var lastCheckedTextView: TextView = itemView.findViewById(R.id.taskLastCheckedTextView)
         var checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
         var taskRowLayout: ConstraintLayout = itemView.findViewById(R.id.taskRowLayout)
         var editMode: Boolean = false
@@ -52,6 +56,7 @@ class TaskRecyclerViewAdapter (
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.titleTextView.text = data[position].title
         holder.descriptionTextView.text = data[position].description
+        holder.lastCheckedTextView.text = data[position].lastChecked
         holder.checkBox.isChecked = data[position].checked
         holder.editMode = this.editMode
     }

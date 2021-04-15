@@ -181,6 +181,7 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
                 taskJson.put("title", this.data[i].tasks[j].title)
                 taskJson.put("description", this.data[i].tasks[j].description)
                 taskJson.put("checked", this.data[i].tasks[j].checked)
+                taskJson.put("lastChecked", this.data[i].tasks[j].lastChecked)
                 tasksJson.put(taskJson)
             }
             checklistJson.put("tasks", tasksJson)
@@ -236,9 +237,8 @@ class MainActivity : AppCompatActivity(), ChecklistRecyclerViewAdapter.OnCheckli
                         Task(
                             jsonTaskObject.getString("title"),
                             jsonTaskObject.getString("description"),
-                            jsonTaskObject.getBoolean(
-                                "checked"
-                            )
+                            jsonTaskObject.getBoolean("checked"),
+                                jsonTaskObject.getString("lastChecked")
                         )
                     )
                 }
