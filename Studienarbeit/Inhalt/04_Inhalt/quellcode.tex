@@ -1,0 +1,74 @@
+\chapter{Programm- bzw. Quellcode}
+\section{Quellcode}
+Ein wichtiger Punkt ist auch, dass man Quellcode Stücke mit in seinen Praxisbericht einbaut. Hier nun einfach mal ein Beispiel in Form eines kleinen JAVA Codes, welcher aus einer Datei gelesen wird:
+
+\lstinputlisting[
+	label=code:algQuersumme,    % Label; genutzt für Referenzen auf dieses Code-Beispiel
+	caption=Algorithmus zur Berechnung der Quersumme,
+	captionpos=b,               % Position, an der die Caption angezeigt wird t(op) oder b(ottom)
+	style=EigenerJavaStyle,     % Eigener Style der vor dem Dokument festgelegt wurde
+	firstline=3,                % Zeilennummer im Dokument welche als erste angezeigt wird
+	lastline=18                 % Letzte Zeile welche ins LaTeX Dokument übernommen wird
+]{Quellcode/Eigenes-Java-File.java}
+
+Zu beachten ist, dass jedes Stück Code kommentiert werden sollte. Was wird in diesem Abschnitt genau durchgeführt. Wo könnten Probleme auftreten und warum wurde dieses Stück hier hinzugefügt.
+
+\vspace*{0.5cm}
+
+\pagebreak
+\textbf{EVENT 01} \textit{INIT}
+\lstinputlisting[
+	label={code:SSCUI-AfterInit},  % Label; genutzt für Referenzen auf dieses Code-Beispiel
+	caption={Initialisierung im Programm},
+	captionpos=b,               % Position, für die Caption:  t(op) oder b(ottom)
+	style=EigenerABAPStyle,     % Eigener Style der vor dem Dokument festgelegt wurde
+	firstline=4,                % Zeilennummer im Dokument welche als erste angezeigt wird
+	lastline=23                 % Letzte Zeile welche ins LaTeX Dokument übernommen wird
+]{Quellcode/Eigenes-ABAP-File.abap}
+
+Es ist auch möglich, innerhalb des Listings \LaTeX{} Befehle zu verwenden. Dazu muss aber eine Escape-Sequenz angegeben werden. Das folgende Beispiel enthält ein Label, auf das dann verwiesen werden wird: Auch hier funktioniert \texttt{\textbackslash{}autoref}: \enquote{In \autoref{code:var_b} wird der Variable \texttt{b} \ldots}.
+
+\begin{lstlisting}[
+  style=EigenerJavaStyle,
+  captionpos=b,
+  caption={Zuweisung von Variablen},
+  label={code:basic_block},
+  escapeinside={@}{@}]
+int a = 10;
+@\label{code:var_b}@int b = a + 20;
+return;
+\end{lstlisting}
+
+\pagebreak
+Weitere Programmiersprachen können auch eingebunden werden. Hier mal ein Beispiel in der Programmiersprache Python:
+\lstinputlisting[
+	label=code:WhileLoop,    % Label; genutzt für Referenzen auf dieses Code-Beispiel
+	caption=Algorithmus zum schätzen einer Zahl in Python,
+	captionpos=b,               % Position, an der die Caption angezeigt wird t(op) oder b(ottom)
+	style=EigenerPythonStyle,   % Eigener Style der vor dem Dokument festgelegt wurde
+	firstline=0,                % Zeilennummer im Dokument welche als erste angezeigt wird
+	lastline=23                 % Letzte Zeile welche ins LaTeX Dokument übernommen wird
+]{Quellcode/Eigenes-Python-File.py}
+
+\clearpage % Absichtlicher Seitenumbruch, um ein besseres Layout zu erhalten.
+
+\section{Pseudocode}
+Pseudocode kann hilfreich sein, wenn \enquote{richtig} implementierte Algorithm in einer Programmiersprache zu lang sind und diese mittels Pseudocode bündig zusammengefasst werden können. \autoref{lst:euclid} zeigt Pseudocode.
+
+Die Doku für das Package und damit eine Liste aller Befehle findet sich unter \newline
+\url{http://tug.ctan.org/macros/latex/contrib/algorithmicx/algorithmicx.pdf}
+
+\begin{algorithm}
+	\caption{Euclid's algorithm}\label{lst:euclid}
+	\begin{algorithmic}[1]
+		\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+			\State $r\gets a\bmod b$
+			\While{$r\not=0$}\Comment{We have the answer if r is 0}
+				\State $a\gets b$
+				\State $b\gets r$
+				\State $r\gets a\bmod b$
+			\EndWhile\label{euclidendwhile}
+			\State \textbf{return} $b$\Comment{The gcd is b}
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}

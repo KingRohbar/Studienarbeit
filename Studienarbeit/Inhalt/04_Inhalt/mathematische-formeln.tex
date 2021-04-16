@@ -1,0 +1,95 @@
+\chapter{Mathematik}
+
+\section{Text}
+Hier steht ein beispielhafter Text bei dem nun auf eine sehr bekannte und durchaus vertraute Formel im Text direkt mit $c = \sqrt{a^2 + b^2}$ eingegangen wird. Dabei können auch Winkel wie: $\alpha, \beta, \gamma$ gerne verwendet werden. Weiterhin werden hier nur Formeln im Bereich der $\mathbb{N}$ dargestellt, gerne können diese aber durch Formeln aus diesem Bereich der $\mathbb{R}$ ergänzt werden.
+
+\section{Formeln}
+Beachte bei Formeln keine konkreten Werte anzugeben, sondern die Formel stets nur wie in der Literatur nur als Größengleichungen anzugeben.
+\begin{align}
+	\sum_{n=0}^{\infty}x=b+n\\
+	\frac{b*x}{c} = y
+\end{align}
+
+Trotz unterschiedlicher Länge kann man die Gleichheitszeichen auf der gleichen Höhe anbringen wie in \autoref{eq:Gleichung1} und \autoref{eq:Gleichung2} dargestellt, zusätzlich kann man diese auch mit Informationen versehen wie in Formel \autoref{eq:Gleichung3} zu sehen.
+
+\begin{align}
+	\label{eq:Gleichung1} a + b &= c\\
+	\label{eq:Gleichung2} 5c + 3f &= 4h\\ 
+	\label{eq:Gleichung3} \overbrace{5y}^{y = 0} + \underbrace{42x}_{x = 1} &= b
+\end{align}
+
+\section{Arrays und Matrizen}
+
+\begin{center}
+	\(
+	\begin{array}{lc|r}
+		a&b&c\\
+		\hline
+		x&y&z\\
+		c&a&b
+	\end{array}
+	\)
+\end{center}
+
+\begin{equation}
+	\begin{array}{lcl}
+		z & = & a \\
+		a + b & = & c \\
+		f(x,y,z) & = & x + y + z
+	\end{array}
+\end{equation}
+
+Hier noch ein paar Matrizen Beispiele in \LaTeX{}.
+
+\begin{align}
+	\begin{pmatrix}
+		a_{11}	& \dots   & a_{1n}\\
+		\vdots	& \ddots  & \vdots\\
+		a_{n1}	& \dots   & a_{nn}\\
+	\end{pmatrix}
+	\\[0.4cm]
+	\begin{bmatrix} 
+		100&250\\
+		300&499
+	\end{bmatrix}
+	\\[0.4cm]
+	\begin{Bmatrix} 
+		100&250\\
+		300&499
+	\end{Bmatrix}
+	\\[0.4cm]
+	\begin{Vmatrix}
+		100&250\\
+		300&499
+	\end{Vmatrix}
+\end{align}
+
+\section{Klammern und Kästchen}
+
+\begin{center}
+	\( \Vert x\Vert_{p}=
+	\left(
+	\sum_{i=1}^{n} | x_{i} |^{p}
+	\right)^{\frac{1}{p}} \)
+\end{center}
+
+\begin{center}
+	\( \left.
+	\begin{array}{lc|r}
+		a&b&c\\
+		\hline
+		x&y&z\\
+		c&a&b
+	\end{array}
+	\right\}
+	\Rightarrow z,b \)
+\end{center}
+
+\begin{equation*}
+\mbox{
+	\boxed{
+		\sin^2\varphi+\cos^2\varphi=1
+	}
+}
+\end{equation*}
+

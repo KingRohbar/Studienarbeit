@@ -1,0 +1,36 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {ngerman}{}
+\contentsline {chapter}{Formelverzeichnis}{V}{chapter*.4}%
+\contentsline {chapter}{Abkürzungsverzeichnis}{VI}{chapter*.5}%
+\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{VII}{chapter*.6}%
+\contentsline {chapter}{\nonumberline Tabellenverzeichnis}{VIII}{chapter*.7}%
+\contentsline {chapter}{\nonumberline Quellcodeverzeichnis}{IX}{chapter*.8}%
+\contentsline {chapter}{\numberline {1}Einleitung}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Grobe Struktur der Arbeit}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Einleitung - was gibt es zu beachten?}{1}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Hauptteil - zeige was du kannst!}{2}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Schluss - das Ziel ist nahe...}{2}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Sonstige Tipps}{3}{subsection.1.1.4}%
+\contentsline {chapter}{\numberline {2}Textformatierungen}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Definitionen und Highlight Boxen}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Schriftbild}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Listen}{5}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Abkürzungen}{5}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Anführungszeichen}{6}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Verweise und URLs}{6}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Abbildungen}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Tabellen}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Grafiken}{9}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Diagramme, Mockups, Software Design}{10}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Mathematik}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Text}{12}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Formeln}{12}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Arrays und Matrizen}{13}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Klammern und Kästchen}{13}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Programm- bzw. Quellcode}{14}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Quellcode}{14}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Pseudocode}{17}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Literaturhinweise}{18}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Fußnoten und Literaturverweise}{18}{section.6.1}%
+\contentsfinish 
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

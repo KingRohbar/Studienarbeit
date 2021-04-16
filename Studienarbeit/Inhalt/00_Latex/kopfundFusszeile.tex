@@ -1,0 +1,26 @@
+% ---- Metainformation für das PDF Dokument
+\hypersetup{
+	pdftitle    = {\titel},
+	pdfsubject  = {\arbeit},
+	pdfauthor   = {\autor},
+	%pdfkeywords = {Keywords angeben},
+	pdfcreator  = {LaTeX},
+	%pdfproducer = {in der Regel pdfTeX}
+}
+
+% ---- Definition der Kopf- und Fußzeilen
+\clearscrheadfoot                               % Löschen von LaTeX Standard
+\automark[section]{chapter}                     % Füllen von section und chapter
+\renewcommand*{\chaptermarkformat}{}            % Entfernt die Kapitelnummer
+\renewcommand*{\sectionmarkformat}{}            % Entfernt die Sectionnummer
+% Angaben [für "plain"]{für "scrheadings"}
+\ihead[]{\titelheader}                          % Kopfzeile links
+\chead[]{}                                      % Kopfzeile mitte
+\ohead[]{\rightmark}                            % Kopfzeile rechts
+\ifoot[]{}                                      % Fußzeile links
+\cfoot*{\sffamily\pagemark}                     % Fußzeile mitte
+\ofoot[]{}                                      % Fußzeile rechts
+\KOMAoptions{
+   headsepline = 0.2pt,                         % Liniendicke Kopfzeile
+   footsepline = false                          % Liniendicke Fußzeile
+}

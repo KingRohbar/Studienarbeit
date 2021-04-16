@@ -1,0 +1,122 @@
+\documentclass[
+	fontsize=12pt,           % Leitlinien sprechen von Schriftgröße 12.
+	paper=A4,
+	twoside=false,
+	listof=totoc,            % Tabellen- und Abbildungsverzeichnis ins Inhaltsverzeichnis
+	bibliography=totoc,      % Literaturverzeichnis ins Inhaltsverzeichnis aufnehmen
+	titlepage,               % Titlepage-Umgebung anstatt \maketitle
+	headsepline,             % horizontale Linie unter Kolumnentitel
+	abstracton,              % Überschrift einschalten, Abstract muss in {abstract}-Umgebung stehen
+]{scrreprt}                  % Verwendung von KOMA-Report
+\usepackage[utf8]{inputenc}  % UTF8 Encoding einschalten
+\usepackage[ngerman]{babel}  % Neue deutsche Rechtschreibung
+\usepackage[T1]{fontenc}     % Ausgabe von westeuropäischen Zeichen (auch Umlaute)
+\usepackage{microtype}       % Trennung von Wörtern wird besser umgesetzt
+\usepackage{lmodern}         % Nicht-gerasterte Schriftarten (bei MikTeX erforderlich)
+\usepackage{graphicx}        % Einbinden von Grafiken erlauben
+\usepackage{wrapfig}         % Grafiken fließend im Text
+\usepackage{setspace}        % Zeilenabstand \singlespacing, \onehalfspaceing, \doublespacing
+\usepackage[
+	%showframe,                % Ränder anzeigen lassen
+	left=2.7cm, right=2.5cm,
+	top=2.5cm,  bottom=2.5cm,
+	includeheadfoot
+]{geometry}                      % Seitenlayout einstellen
+\usepackage{scrlayer-scrpage}    % Gestaltung von Fuß- und Kopfzeilen
+\usepackage{acronym}             % Abkürzungen, Abkürzungsverzeichnis
+\usepackage{titletoc}            % Anpassungen am Inhaltsverzeichnis
+\contentsmargin{0.75cm}          % Abstand im Inhaltsverzeichnis zw. Punkt und Seitenzahl
+\usepackage[                     % Klickbare Links (enth. auch "nameref", "url" Package)
+  hidelinks,                     % Blende die "URL Boxen" aus.
+  breaklinks=true                % Breche zu lange URLs am Zeilenende um
+]{hyperref}
+\usepackage[hypcap=true]{caption}% Anker Anpassung für Referenzen
+\urlstyle{same}                  % Aktuelle Schrift auch für URLs
+% Anpassung von autoref für Gleichungen (ergänzt runde Klammern) und Algorithm.
+% Anstatt "Listing" kann auch z.B. "Code-Ausschnitt" verwendet werden. Dies sollte
+% jedoch synchron gehalten werden mit \lstlistingname (siehe weiter unten).
+\addto\extrasngerman{%
+	\def\equationautorefname~#1\null{Gleichung~(#1)\null}
+	\def\lstnumberautorefname{Zeile}
+	\def\lstlistingautorefname{Listing}
+	\def\algorithmautorefname{Algorithmus}
+	% Damit einheitlich "Abschnitt 1.2[.3]" verwendet wird und nicht "Unterabschnitt 1.2.3"
+	% \def\subsectionautorefname{Abschnitt}
+}
+
+% ---- Abstand verkleinern von der Überschrift 
+\renewcommand*{\chapterheadstartvskip}{\vspace*{.5\baselineskip}}
+
+% Hierdurch werden Schusterjungen und Hurenkinder vermieden, d.h. einzelne Wörter
+% auf der nächsten Seite oder in einer einzigen Zeile.
+% LaTeX kann diese dennoch erzeugen, falls das Layout ansonsten nicht umsetzbar ist.
+% Diese Werte sind aber gute Startwerte.
+\widowpenalty10000
+\clubpenalty10000
+
+% ---- Für das Quellenverzeichnis
+\usepackage[
+	backend = biber,                % Verweis auf biber
+	language = auto,
+	style = numeric,                % Nummerierung der Quellen mit Zahlen
+	sorting = none,                 % none = Sortierung nach der Erscheinung im Dokument
+	sortcites = true,               % Sortiert die Quellen innerhalb eines cite-Befehls
+	block = space,                  % Extra Leerzeichen zwischen Blocks
+	hyperref = true,                % Links sind klickbar auch in der Quelle
+	%backref = true,                % Referenz, auf den Text an die zitierte Stelle
+	bibencoding = auto,
+	giveninits = true,              % Vornamen werden abgekürzt
+	doi=false,                      % DOI nicht anzeigen
+	isbn=false,                     % ISBN nicht anzeigen
+    alldates=short                  % Datum immer als DD.MM.YYYY anzeigen
+]{biblatex}
+\addbibresource{Inhalt/literatur.bib}
+\setcounter{biburlnumpenalty}{3000}     % Umbruchgrenze für Zahlen
+\setcounter{biburlucpenalty}{6000}      % Umbruchgrenze für Großbuchstaben
+\setcounter{biburllcpenalty}{9000}      % Umbruchgrenze für Kleinbuchstaben
+\DeclareNameAlias{default}{family-given}  % Nachname vor dem Vornamen
+\AtBeginBibliography{\renewcommand{\multinamedelim}{\addslash\space
+}\renewcommand{\finalnamedelim}{\multinamedelim}}  % Schrägstrich zwischen den Autorennamen
+\DefineBibliographyStrings{german}{
+  urlseen = {Einsichtnahme:},                      % Ändern des Titels von "besucht am"
+}
+\usepackage[babel,german=quotes]{csquotes}         % Deutsche Anführungszeichen + Zitate
+
+
+% ---- Für Mathevorlage
+\usepackage{amsmath}    % Erweiterung vom Mathe-Satz
+\usepackage{amssymb}    % Lädt amsfonts und weitere Symbole
+\usepackage{MnSymbol}   % Für Symbole, die in amssymb nicht enthalten sind.
+
+
+% ---- Für Quellcodevorlage
+\usepackage{scrhack}                    % Hack zur Verw. von listings in KOMA-Script
+\usepackage{listings}                   % Darstellung von Quellcode
+\usepackage{xcolor}                     % Einfache Verwendung von Farben
+\input{Inhalt/00_Latex/quellcodeStyle}  % Weitere Details sind ausgelagert
+
+\usepackage{algorithm}                  % Für Algorithmen-Umgebung (ähnlich wie lstlistings Umgebung)
+\usepackage{algpseudocode}              % Für Pseudocode. Füge "[noend]" hinzu, wenn du kein "endif",
+                                        % etc. haben willst.
+
+\makeatletter                           % Sorgt dafür, dass man @ in Namen verwenden kann.
+                                        % Ansonsten gibt es in der nächsten Zeile einen Compilefehler.
+\renewcommand{\ALG@name}{Algorithmus}   % Umbenennen von "Algorithm" im Header der Listings.
+\makeatother                            % Zeichen wieder zurücksetzen
+\renewcommand{\lstlistingname}{Listing} % Erlaubt das Umbenennen von "Listing" in anderen Titel.
+
+% ---- Tabellen
+\usepackage{booktabs}  % Für schönere Tabellen. Enthält neue Befehle wie \midrule
+\usepackage{multirow}  % Mehrzeilige Tabellen
+\usepackage{siunitx}   % Für SI Einheiten und das Ausrichten Nachkommastellen
+\sisetup{locale=DE, range-phrase={~bis~}, output-decimal-marker={,}} % Damit ein Komma und kein Punkt verwendet wird.
+\usepackage{xfrac} % Für siunitx Option "fraction-function=\sfrac"
+
+% ---- Für Definitionsboxen in der Einleitung
+\usepackage{amsthm}                     % Liefert die Grundlagen für Theoreme
+\usepackage[framemethod=tikz]{mdframed} % Boxen für die Umrandung
+\input{Inhalt/00_Latex/highlightBoxen}  % Weitere Details sind ausgelagert
+
+% ---- Für Todo Notes
+\usepackage{todonotes}
+\setlength {\marginparwidth }{2cm}      % Abstand für Todo Notizen

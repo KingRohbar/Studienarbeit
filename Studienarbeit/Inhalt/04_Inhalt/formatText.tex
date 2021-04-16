@@ -1,0 +1,92 @@
+\chapter{Textformatierungen}
+
+\section{Definitionen und Highlight Boxen}
+
+\begin{defStrich}[Definition]
+Diese Hervorhebungen können für deine Arbeit an machen stellen sehr nützlich sein. Besonders bei Definitionen macht es einen guten Eindruck, wenn diese in solch einer Form dargestellt ist. 
+\end{defStrich}
+
+DHBW Richtlinie: Laut den aktuellen Angaben der DHBW sind diese Boxen nicht notwendig. Helfen können sie jedoch, um einen Faktor speziell hervorzuheben. Bitte beachte, dass deine Projektarbeit oder auch Bachelorarbeit kein Bilderbuch ist! Alles was eingebunden wird sollte schlicht und dezent dargestellt sein.
+
+\bigskip
+
+\begin{defEckKasten}[Wichtig] Verwende kein \glqq ich\grqq{}, während der gesamten Arbeit. Jeder weiß, dass es deine Arbeit ist. Auch von Sätzen mit \glqq man\grqq{}, solltest du Abstand nehmen. Frage deinen Betreuer gerne, welche Vorzüge er oder sie hat. Jeder Dezi oder DHBW-Betreuer hat in diesem Zusammenhang unterschiedliche Meinungen.
+\end{defEckKasten}
+
+\section{Schriftbild}
+% Größe
+{\LARGE LARGE Text} {\small small Text} normal Text
+
+% Fett, KAPITÄLCHEN, Kursiv
+\textbf{Fetter Text} \textsc{Großbuchstaben} \textit{Kursiver Text}
+
+% Schreibmaschinenschrift, serifenlose Schrift, Serifenschrift
+\texttt{Schreibmaschinenschrift} \textsf{serifenlose Schrift} \textrm{Serifenschrift}
+
+Manche Zeichen wollen einfach nicht so, wie der Autor das will: \% \& \$ \{ \}
+
+\newpage
+
+\section{Listen}
+
+%Bulletpoints und eigene Symbole
+\begin{itemize}
+	\item Erster geworden
+	\begin{itemize}
+		\item Wir sind nicht oben oder?
+		\item[+] Nummerierungen oder
+		\item[-] Aufzählungen oder
+		\item[*] Definitionen 
+	\end{itemize}
+\end{itemize}
+
+% Nummerierte Liste oder festgelegte Nummer
+\begin{enumerate}
+	\item Jetzt ist es offiziell ich bin die Nummer 1
+	\item[42.] Es ist die Antwort auf alles
+\end{enumerate}
+
+\begin{description}
+	\item[Epidemie / Pandemie] \hfill \\
+	Als Epidemie bezeichnet man eine in einem bestimmten begrenzten Verbreitungsgebiet auftretende ansteckende Erkrankung; eine Seuche, für die typisch ist, dass eine große Zahl von Menschen gleichzeitig befallen wird.
+\end{description}
+
+
+\section{Abkürzungen}
+Während du schreibst benötigt du zu manchen Zeitpunkten einfach ein paar Abkürzungen. Doch wie mache ich das wenn ich eine Abkürzung für die \acp{API} nutzen möchte. Ich könnte auch nur ein \ac{API} gemeint haben. Daneben gibt es noch \ac{HTTPS} oder \ac{AJAX}. Willst du einen Begriff nochmals ausschreiben, dann verwende \acf{HTTPS} einfach als Kommando.
+
+Du kannst auch den Plural von Abkürzungen verwenden. Dazu einfach ein \texttt{p} an den jeweiligen Befehl anhängen, z.B. 
+\acfp{ISBN}.
+
+Im Text können gewisse Dinge auch nützlich sein wie \zB diese Abkürzung, \dash du kannst sie so direkt in den Text eintragen. Die Namen kann jeder selbst festlegen.
+
+
+\section{Anführungszeichen}
+
+Normale Anführungszeichen (\"{}) können in \LaTeX{} nicht verwendet werden. Dafür muss das entsprechende Wort in \texttt{\textbackslash enquote{\{\ldots\}}} gesetzt werden. Beispiel: \enquote{Ich stehe ich Anführungszeichen. \enquote{Schachtelungen funktionieren auch.}}
+
+Alternativ können Anführungszeichen auch von Hand gesetzt werden:
+\texttt{\textbackslash glqq\{\}} entspricht \glqq{} und \texttt{\textbackslash grqq\{\}} entspricht \grqq{}
+
+\section{Verweise und URLs}\label{sec:verweise}
+URLs können mit dem Package \enquote{hyperref} und den Befehlen \texttt{href} und \texttt{url} dargestellt werden. Beispiele:
+
+\begin{itemize}
+	\item Mit eigenem Text: \href{https://github.wdf.sap.corp/vtgermany/LaTeX-Template-DHBW/}{\textbf{Klick mich}, um diese Vorlage auf Github zu sehen!}
+	\item Anzeigen der URL: \textbf{\url{https://www.google.com/}}
+\end{itemize}
+
+Verweise sind eines der wichtigsten Werkzeuge von \LaTeX. Mit dem Package \enquote{hyperref} gibt es verschiedene Verweise, die in \autoref{tabelle:verweise} gelistet sind.
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rll}
+		        \texttt{\textbackslash ref} & Zeigt die Nummer                   & Bsp.: \ref{sec:verweise}                   \\
+		    \texttt{\textbackslash autoref} & Zeigt Typ + Nr.                    & Bsp.: \autoref{sec:verweise}               \\
+		\texttt{\textbackslash autopageref} & Zeigt \enquote{Seite Seitennummer} & Bsp.: \autopageref{sec:verweise}           \\
+		    \texttt{\textbackslash nameref} & Zeigt den Namen (bzw. Caption)     & Bsp.: \nameref{sec:verweise}               \\
+		   \texttt{\textbackslash hyperref} & Eigener Text                       & Bsp.: \hyperref[sec:verweise]{Klick mich!}
+	\end{tabular}
+	\caption{Verweise im Dokument}
+	\label{tabelle:verweise}
+\end{table}
