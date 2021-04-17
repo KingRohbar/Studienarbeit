@@ -50,6 +50,19 @@ Nachdem die Anwendungsfälle geklärt sind wird nun weiter auf die Checkliste un
 	\label{fig:KlassenDiagramm}
 \end{figure}
 
+Nach dem entwickeln und implementieren der Anwendungsfälle sollen diese getestet werden Hierfür sind im Umfang der Projektdefinition Espresso-UI Test vorgesehen. Mithilfe dieser Test können die Abläufe der Anwendungsfälle auf dem Emulator von Android Studio durchgeführt werden und so die Funktionalität gewährleistet werden. In der ursprünglichen Projektdefinition ist definiert, dass mindestens 80\% der Anwendungsfälle mithilfe von Espresso Tests getestet werden sollen.\\
+Als letztes legt die Definition des Umfang fest, dass eine Studienarbeit mit dem von der \ac{DHBW} Karlsruhe vorgegebenen Umfang von 40-60 Seiten geschrieben werden muss.\\
+
+Nach Rücksprache mit dem Betreuer sind Ideen für eine Erweiterung des Umfang aufgetreten. Dabei handelt es sich um folgende Anwendungsfälle beziehungsweise Erweiterungen:
+
+\begin{itemize}
+	\item Push-Benachrichtigungen bei dem verlassen einer für die Checkliste festgelegten Ort.
+	\item Zeitstempel an den Aufgaben
+	\item Historie
+\end{itemize}
+
+Der erste Punkt ist ein weiterer Anwendungsfall der verhindern soll, dass Nutzer vergessen die App und somit die Checkliste zu öffnen. Als Anhaltspunkt wurde die GeoFencing API genannt. Der zweite Punkt handelt von der Erweiterung der Aufgaben Klasse um ein Zeitstempel Attribut zu erweitern. Dieser den Fall vorbeugen, dass die Hacken vom vorherigen Tag noch vorhanden sind und der Nutzer so nicht weiß ob er diese Aufgaben am aktuellen Tag bereits erledigt hat. Der dritte Punkt spiegel eine Erweiterung des Zeitstempel als eigenen Anwendungsfall wieder. Hierbei soll die komplette Checkliste für einen festgelegten Zeitraum in einer Historie gespeichert werden. Dies soll dem Nutzer ermöglichen den Zustand der Aufgaben von vorherigen Tagen noch einmal einsehen zu können und sich so versichern zu können die Aufgabe erledigt zu haben.
+
 \section{Risikobehandlung}\label{sec:risiko}
 
 Zum Schluss des Planungskapitel und somit der ursprünglichen Projektdefinition wird das Thema Risikobehandlung behandelt.
@@ -72,7 +85,7 @@ Die Risikobehandlung dient dem einschätzen und eingrenzen von Risiken. Dabei we
 Wie in \autoref{tabelle:Risko} zu sehen ist hält sich die Anzahl an Risiken in grenzen. Dies ist darauf zurückzuführen das nur eine Person und kein Team an dem Projekt arbeitet. Dadurch können keine Kommunikationsprobleme auftreten. Ausfälle einzelner Personen und somit Nichterfüllung derer Aufgabenteile reflektieren hier das ganze Projekt und könnten somit alle mit den vier genannten Risiken abgedeckt werden.\\
 Da es sich bei den in der Tabelle aufgeführten Risiken um die aus der Projektdefinition handelt werden eventuelle Eintritte und Erweiterungen im folgenden erläutert.\\
 Das Risiko des verspäteten Projektstart ist wie anfangs korrekt eingeschätzt wurde eingetreten. Damit hat sich die Eintrittwahrscheinlichkeit von 80\% bestätigt. Das Eintreten des Risiko ist auf eine schlechte Angewohnheit des Verantwortlichen zurückzuführen. Die Alternative zu diesem Risiko befindet sich in Ausübung und wird mit Ende der Ausarbeitung der Studienarbeit als erfolgreich angesehen.\\
-Das zweit genannte Risiko konnte nach Projektdefinitionsstand erfolgreich verhindert werden. Das Risiko wird jedoch hiermit um \glqq Erweiterungsumfang nicht eingehalten\grqq erweitert, da nach Rücksprache mit dem Betreuer sind Ideen für weitere Anwendungsfälle aufgetreten. Die Wahrscheinlichkeit für dieses angepasste Risiko wird somit im Nachhinein auf 60\% angehoben. Die Alternative für Eintritt des Risiko wird beibehalten und vermutlich Anwendung für den Großteil der Ideen finden.\\
+Das zweit genannte Risiko konnte nach Projektdefinitionsstand erfolgreich verhindert werden. Das Risiko wird jedoch hiermit um \glqq Erweiterungsumfang nicht eingehalten\grqq erweitert, da nach Rücksprache mit dem Betreuer Ideen für weitere Anwendungsfälle aufgetreten sind. Die Wahrscheinlichkeit für dieses angepasste Risiko wird somit im Nachhinein auf 60\% angehoben. Die Alternative für Eintritt des Risiko wird beibehalten und vermutlich Anwendung für den Großteil der Ideen finden.\\
 Die vernachlässigte Dokumentation ist ebenfalls in kleinerem Rahmen eingetreten. Die Studienarbeit selbst gilt als Hauptaspekt der Dokumentation und wird sicher fertiggestellt. Der eingetretene Bereich bezieht sich auf das erstellen von \ac{UML}-Diagrammen. Hier tritt ebenfalls die Alternative in Kraft und Diagramme werden nach Bedarf erstellt.\\
 Das Risiko Krankheit konnte zu 100\% vermieden werden.\\
 In Folge des \autoref{chpt:durchfuerung} \nameref{chpt:durchfuerung} werden unerwartete Probleme aufgeführt, welche Aufgrund des unerwarteten Eintritts keine Berücksichtigung in der Risikobehandlung gefunden haben. Diese werden im \autoref{sec:problem} \nameref{sec:problem} behandelt.\\
