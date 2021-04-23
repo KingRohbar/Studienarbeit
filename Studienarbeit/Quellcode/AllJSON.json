@@ -1,0 +1,23 @@
+{
+    "1": {
+        "title": "Checklist Title",
+        "description": "Checklist Description",
+        "tasks": [
+            {
+                "title": "Task Title",
+                "description": "Task Description",
+                "checked": false
+            },
+            {
+                "title": "Test Task Title",
+                "description": "Test Task Description",
+                "checked": false
+            }
+        ]
+    },
+    "2": {
+        "title": "Test Title",
+        "description": "Test Description",
+        "tasks": []
+    }    
+}
